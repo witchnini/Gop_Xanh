@@ -7,7 +7,7 @@ import { campaigns, heroImage, modelSteps, platformStats, progressOf, formatVnd 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Góp Xanh — Gây quỹ cộng đồng cho nông nghiệp xanh Hà Nội" },
+      { title: "Góp Xanh" },
       {
         name: "description",
         content:

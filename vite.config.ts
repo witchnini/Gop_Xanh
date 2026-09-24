@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  publicDir: "code/front end/public",
+  publicDir: fileURLToPath(new URL("./code/front end/public", import.meta.url)),
   server: {
     port: 8080,
   },
@@ -21,7 +21,14 @@ export default defineConfig({
       srcDirectory: "code/front end/src",
       server: { entry: "server" },
     }),
-    nitro(),
+    nitro({
+      publicAssets: [
+        {
+          dir: fileURLToPath(new URL("./code/front end/public", import.meta.url)),
+          baseURL: "/",
+        },
+      ],
+    }),
     tailwindcss(),
     viteReact(),
   ],
