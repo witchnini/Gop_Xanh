@@ -18,4 +18,4 @@ Kiểm tra role/chủ sở hữu ở backend và RLS. Kiểm tra `error` từ Su
 
 ## Xác minh
 
-Đọc module trước khi sửa. Không sửa tay `routeTree.gen.ts`, `.output`, `.wrangler`, `node_modules`. Thay đổi nghiệp vụ cần cập nhật SRS/backlog/test case. Chạy build, TypeScript, lint và test phù hợp; ghi rõ lỗi có sẵn và phần chưa kiểm thử. Không viết lại lịch sử đã đồng bộ Lovable.
+Đọc module trước khi sửa. Không sửa tay `routeTree.gen.ts`, `.output`, `.wrangler`, `node_modules`. Thay đổi nghiệp vụ cần cập nhật SRS/backlog/test case. Chạy build, TypeScript, lint và test phù hợp; ghi rõ lỗi có sẵn và phần chưa kiểm thử. Không viết lại lịch sử Git đã công bố.

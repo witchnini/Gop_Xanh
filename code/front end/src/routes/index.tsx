@@ -115,7 +115,7 @@ function Index() {
               </div>
               <Button
                 asChild
-                className="w-full rounded-xl font-bold bg-clay text-accent-foreground hover:brightness-95"
+                className="w-full rounded-xl font-bold bg-clay text-white hover:brightness-95"
               >
                 <Link to="/dong-gop/$slug" params={{ slug: featured.slug }}>
                   Góp cho chiến dịch này
@@ -152,7 +152,10 @@ function Index() {
             <h2 className="font-display text-4xl text-moss">Chiến dịch nổi bật</h2>
             <p className="text-ink/60 mt-1">Đang cần sự đồng hành của bạn ngay lúc này.</p>
           </div>
-          <Link to="/chien-dich" className="text-sm font-bold text-clay hover:underline">
+          <Link
+            to="/chien-dich"
+            className="text-sm font-bold text-moss hover:text-leaf hover:underline"
+          >
             Xem tất cả chiến dịch →
           </Link>
         </div>

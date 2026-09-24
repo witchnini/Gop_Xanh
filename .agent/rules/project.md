@@ -1,6 +1,6 @@
 # Quy tắc AI cho Góp Xanh
 
-Đọc `AGENTS.md`, `docs/srs.md` và `docs/convention.md` trước khi thay đổi. Giữ phạm vi yêu cầu; không hoàn tác thay đổi của người dùng. Không sửa output sinh tự động hoặc viết lại lịch sử Lovable đã công bố.
+Đọc `AGENTS.md`, `docs/srs.md` và `docs/convention.md` trước khi thay đổi. Giữ phạm vi yêu cầu; không hoàn tác thay đổi của người dùng. Không sửa output sinh tự động hoặc viết lại lịch sử Git đã công bố.
 
 Frontend ở `code/front end`, server functions ở `code/backend/src`. Dùng alias hiện có. Không giả định hai thư mục là hai dịch vụ độc lập. Phân biệt đóng góp demo và thanh toán thật; không tự suy diễn cơ chế tài chính/rủi ro chưa được chốt.
 
