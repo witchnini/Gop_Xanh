@@ -4,11 +4,12 @@ Phân quyền mới: [test ba role](roles.md). Dùng contributor, partner A/B v�
 
 Các file trong thư mục này là test case thủ công, chưa phải bộ test tự động. Mỗi lần thực thi cần ghi ngày, môi trường, người chạy, kết quả thực tế và bằng chứng/lỗi. Mặc định các case chưa chạy.
 
-| Nhóm       | File                             | Phạm vi                                   |
-| ---------- | -------------------------------- | ----------------------------------------- |
-| Chức năng  | [functional.md](functional.md)   | FR-01 đến FR-09 đã có luồng trong source  |
-| Phân quyền | [permissions.md](permissions.md) | Khách, nông hộ A/B, admin, RLS            |
-| Hồi quy    | [regression.md](regression.md)   | Build, type, lint, route, asset, hiển thị |
+| Nhóm           | File                             | Phạm vi                                                  |
+| -------------- | -------------------------------- | -------------------------------------------------------- |
+| Chức năng      | [functional.md](functional.md)   | FR-01 đến FR-09 đã có luồng trong source                 |
+| Phân quyền     | [permissions.md](permissions.md) | Khách, nông hộ A/B, admin, RLS                           |
+| Panel quản trị | [admin-panel.md](admin-panel.md) | Dashboard, Green Filter, chiến dịch, nguồn lực, tác động |
+| Hồi quy        | [regression.md](regression.md)   | Build, type, lint, route, asset, hiển thị                |
 
 Chuẩn bị DB thử nghiệm, nông hộ A/B và admin; chiến dịch chờ duyệt, gây quỹ, hoàn thành. Không dùng môi trường thật cho ca ghi dữ liệu. FR-08/FR-10 cần test chi tiết sau khi chốt nghiệp vụ.
 

@@ -70,9 +70,16 @@ function SubmitCampaignPage() {
       await send({ data: { name, category, district, summary, story, method, impact, goal } });
       navigate({ to: "/ho-so-cua-toi" });
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Thông tin chưa hợp lệ, vui lòng kiểm tra lại.",
-      );
+      let msg = err instanceof Error ? err.message : "Thông tin chưa hợp lệ, vui lòng kiểm tra lại.";
+      try {
+        const parsed = JSON.parse(msg);
+        if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].message) {
+          msg = parsed.map((issue: any) => "• " + issue.message).join("\n");
+        }
+      } catch (e) {
+        // Not JSON, keep original message
+      }
+      setError(msg);
     } finally {
       setSending(false);
     }
@@ -206,7 +213,7 @@ function SubmitCampaignPage() {
           />
         </div>
 
-        {error && <p className="text-sm text-destructive mt-4">{error}</p>}
+        {error && <p className="text-sm text-destructive mt-4 whitespace-pre-line">{error}</p>}
 
         <Button
           type="submit"

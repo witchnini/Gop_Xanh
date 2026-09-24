@@ -1,7 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import type { Database } from "@/integrations/supabase/types";
 
 const campaignSchema = z.object({
   name: z.string().min(4, "Tên chiến dịch tối thiểu 4 ký tự"),
@@ -33,7 +35,11 @@ export const getMySession = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const [{ data: roles }, { data: profile }] = await Promise.all([
       context.supabase.from("user_roles").select("role").eq("user_id", context.userId),
-      context.supabase.from("profiles").select("full_name, organization").eq("id", context.userId).maybeSingle(),
+      context.supabase
+        .from("profiles")
+        .select("full_name, organization")
+        .eq("id", context.userId)
+        .maybeSingle(),
     ]);
     const roleList = (roles ?? []).map((r) => r.role as string);
     return {
@@ -57,7 +63,8 @@ export const submitCampaign = createServerFn({ method: "POST" })
       _user_id: context.userId,
       _role: "partner",
     });
-    if (roleError || !isPartner) throw new Error("Chỉ tài khoản Chủ dự án / Đối tác mới nộp được hồ sơ.");
+    if (roleError || !isPartner)
+      throw new Error("Chỉ tài khoản Chủ dự án / Đối tác mới nộp được hồ sơ.");
 
     const { data: inserted, error } = await context.supabase
       .from("campaigns")
@@ -79,7 +86,7 @@ export const getMyCampaigns = createServerFn({ method: "GET" })
     if (roleError || !allowed) throw new Error("Chỉ Chủ dự án / Đối tác được quản lý hồ sơ.");
     const { data, error } = await context.supabase
       .from("campaigns")
-      .select("id, slug, name, category, district, goal, raised, status, review_note, created_at")
+      .select("id, slug, name, category, district, summary, story, method, impact, goal, raised, status, review_note, created_at")
       .eq("owner_id", context.userId)
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
@@ -115,19 +122,25 @@ export const adminListPending = createServerFn({ method: "GET" })
     await assertAdmin(context.supabase, context.userId);
     const { data, error } = await context.supabase
       .from("campaigns")
-      .select("id, slug, name, category, district, summary, story, method, impact, goal, status, owner_id, created_at")
+      .select(
+        "id, slug, name, category, district, summary, story, method, impact, goal, status, owner_id, created_at",
+      )
       .in("status", ["cho_duyet", "can_bo_sung"])
       .order("created_at", { ascending: true });
     if (error) throw new Error(error.message);
     const rows = data ?? [];
     const ownerIds = [...new Set(rows.map((r) => r.owner_id))];
     const { data: owners } = ownerIds.length
-      ? await context.supabase.from("profiles").select("id, full_name, organization").in("id", ownerIds)
+      ? await context.supabase
+          .from("profiles")
+          .select("id, full_name, organization")
+          .in("id", ownerIds)
       : { data: [] };
     const ownerMap = new Map((owners ?? []).map((o) => [o.id, o]));
     return rows.map((r) => ({
       ...r,
-      ownerName: ownerMap.get(r.owner_id)?.organization || ownerMap.get(r.owner_id)?.full_name || "Chủ thể",
+      ownerName:
+        ownerMap.get(r.owner_id)?.organization || ownerMap.get(r.owner_id)?.full_name || "Chủ thể",
     }));
   });
 
@@ -160,7 +173,11 @@ export const adminReviewCampaign = createServerFn({ method: "POST" })
     await assertAdmin(context.supabase, context.userId);
     const { error } = await context.supabase
       .from("campaigns")
-      .update({ status: data.status, review_note: data.note ?? null, updated_at: new Date().toISOString() })
+      .update({
+        status: data.status,
+        review_note: data.note ?? null,
+        updated_at: new Date().toISOString(),
+      })
       .eq("id", data.campaignId);
     if (error) throw new Error(error.message);
     return { ok: true as const };
@@ -171,23 +188,96 @@ export const adminStats = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     await assertAdmin(context.supabase, context.userId);
-    const [campaigns, donations, volunteers] = await Promise.all([
+    const [campaigns, donations, volunteers, profiles] = await Promise.all([
       context.supabase.from("campaigns").select("id, status, goal, raised"),
       context.supabase.from("donations").select("amount"),
       context.supabase.from("volunteer_applications").select("id"),
+      context.supabase.from("profiles").select("id"),
     ]);
     const list = campaigns.data ?? [];
     return {
       totalCampaigns: list.length,
-      pendingCampaigns: list.filter((c) => c.status === "cho_duyet" || c.status === "can_bo_sung").length,
+      pendingCampaigns: list.filter((c) => c.status === "cho_duyet" || c.status === "can_bo_sung")
+        .length,
       liveCampaigns: list.filter((c) => c.status === "dang_gay_quy").length,
+      completedCampaigns: list.filter((c) => c.status === "hoan_thanh").length,
       totalRaised: (donations.data ?? []).reduce((s, d) => s + Number(d.amount), 0),
       totalDonations: (donations.data ?? []).length,
       totalVolunteers: (volunteers.data ?? []).length,
+      totalUsers: (profiles.data ?? []).length,
     };
   });
 
-async function assertAdmin(supabase: any, userId: string) {
+/** Admin: đóng góp tài chính mô phỏng */
+export const adminListDonations = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { data, error } = await context.supabase
+      .from("donations")
+      .select("id, campaign_slug, amount, full_name, email, anonymous, created_at")
+      .order("created_at", { ascending: false })
+      .limit(200);
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  });
+
+/** Admin: đăng ký đóng góp chuyên môn */
+export const adminListVolunteers = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { data, error } = await context.supabase
+      .from("volunteer_applications")
+      .select("id, campaign_slug, full_name, email, phone, role, experience, status, created_at")
+      .order("created_at", { ascending: false })
+      .limit(200);
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  });
+
+/** Admin: duyệt / từ chối đăng ký cộng tác viên */
+export const adminReviewVolunteer = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z
+      .object({
+        applicationId: z.string().uuid(),
+        status: z.enum(["da_duyet", "tu_choi", "cho_duyet"]),
+      })
+      .parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { error } = await context.supabase
+      .from("volunteer_applications")
+      .update({ status: data.status })
+      .eq("id", data.applicationId);
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });
+
+/** Admin: nhật ký tiến độ của toàn bộ chiến dịch */
+export const adminListCampaignUpdates = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const [{ data: updates, error }, { data: campaigns }] = await Promise.all([
+      context.supabase
+        .from("campaign_updates")
+        .select("id, campaign_id, title, description, created_at")
+        .order("created_at", { ascending: false })
+        .limit(200),
+      context.supabase.from("campaigns").select("id, name, slug, status, impact"),
+    ]);
+    if (error) throw new Error(error.message);
+    const campaignMap = new Map((campaigns ?? []).map((campaign) => [campaign.id, campaign]));
+    return (updates ?? []).map((update) => ({
+      ...update,
+      campaign: campaignMap.get(update.campaign_id) ?? null,
+    }));
+  });
+async function assertAdmin(supabase: SupabaseClient<Database>, userId: string) {
   const { data: isAdmin } = await supabase.rpc("has_role", { _user_id: userId, _role: "admin" });
   if (!isAdmin) throw new Error("Bạn không có quyền quản trị.");
 }
@@ -197,7 +287,9 @@ export const listApprovedCampaigns = createServerFn({ method: "GET" }).handler(a
   const supabasePublic = await publicClient();
   const { data, error } = await supabasePublic
     .from("campaigns")
-    .select("id, slug, name, category, district, summary, story, method, impact, goal, raised, supporters, image_url, status")
+    .select(
+      "id, slug, name, category, district, summary, story, method, impact, goal, raised, supporters, image_url, status",
+    )
     .order("created_at", { ascending: false });
   if (error) throw new Error(error.message);
   return data ?? [];
@@ -210,7 +302,9 @@ export const getPublicCampaign = createServerFn({ method: "GET" })
     const supabasePublic = await publicClient();
     const { data: campaign, error } = await supabasePublic
       .from("campaigns")
-      .select("id, slug, name, category, district, summary, story, method, impact, goal, raised, supporters, image_url, status")
+      .select(
+        "id, slug, name, category, district, summary, story, method, impact, goal, raised, supporters, image_url, status",
+      )
       .eq("slug", data.slug)
       .maybeSingle();
     if (error) throw new Error(error.message);
@@ -231,7 +325,8 @@ export async function publicClient() {
     global: {
       fetch: (input, init) => {
         const h = new Headers(init?.headers);
-        if (key.startsWith("sb_") && h.get("Authorization") === `Bearer ${key}`) h.delete("Authorization");
+        if (key.startsWith("sb_") && h.get("Authorization") === `Bearer ${key}`)
+          h.delete("Authorization");
         h.set("apikey", key);
         return fetch(input, { ...init, headers: h });
       },

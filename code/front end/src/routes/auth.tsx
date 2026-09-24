@@ -1,10 +1,13 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
+import { getMySession } from "@backend/campaigns.functions";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -29,6 +32,8 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const fetchSession = useServerFn(getMySession);
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [fullName, setFullName] = useState("");
   const [organization, setOrganization] = useState("");
@@ -67,7 +72,19 @@ function AuthPage() {
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        navigate({ to: "/chien-dich" });
+        // Invalidate cached session so header re-renders immediately
+        await queryClient.invalidateQueries({ queryKey: ["header-session"] });
+        // Fetch role to redirect to the right page
+        let destination = "/chien-dich";
+        try {
+          const session = await fetchSession();
+          if (session.isAdmin) destination = "/admin";
+          else if (session.isPartner) destination = "/ho-so-cua-toi";
+          else destination = "/hoat-dong-cua-toi";
+        } catch {
+          // fallback to /chien-dich
+        }
+        navigate({ to: destination, replace: true });
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Có lỗi xảy ra, vui lòng thử lại.");

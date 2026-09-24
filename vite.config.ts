@@ -26,6 +26,7 @@ export default defineConfig({
         {
           dir: fileURLToPath(new URL("./code/front end/public", import.meta.url)),
           baseURL: "/",
+          maxAge: 0,
         },
       ],
     }),

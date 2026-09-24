@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const donationSchema = z.object({
   campaignSlug: z.string().min(1),
@@ -48,6 +49,7 @@ const volunteerSchema = z.object({
   campaignSlug: z.string().min(1, "Vui lòng chọn chiến dịch"),
   role: z.string().min(1, "Vui lòng chọn vai trò"),
   experience: z.string().min(10, "Mô tả kinh nghiệm tối thiểu 10 ký tự"),
+  userId: z.string().uuid().optional(),
 });
 
 export const submitVolunteer = createServerFn({ method: "POST" })
@@ -63,11 +65,45 @@ export const submitVolunteer = createServerFn({ method: "POST" })
         campaign_slug: data.campaignSlug,
         role: data.role,
         experience: data.experience,
+        user_id: data.userId ?? null,
       });
     } catch (err) {
       console.error("[gopxanh] volunteer persist failed", err);
     }
     return { ok: true as const, message: "Đã nhận đăng ký cộng tác viên." };
+  });
+
+/** Contributor: xem lịch sử đăng ký cộng tác viên của mình */
+export const getMyActivity = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    // Lấy email của user hiện tại từ JWT claims
+    const userEmail = (context.claims?.email as string | undefined) ?? null;
+
+    // Query theo user_id HOẶC email — để bắt cả đơn cũ chưa có user_id
+    const query = context.supabase
+      .from("volunteer_applications")
+      .select("id, campaign_slug, role, experience, created_at, email");
+
+    const filter = userEmail
+      ? `user_id.eq.${context.userId},email.eq.${userEmail}`
+      : `user_id.eq.${context.userId}`;
+
+    const { data: applications, error } = await query
+      .or(filter)
+      .order("created_at", { ascending: false });
+
+    if (error) throw new Error(error.message);
+
+    // Loại bỏ trùng lặp nếu cùng đơn khớp cả 2 điều kiện
+    const seen = new Set<string>();
+    const unique = (applications ?? []).filter((a) => {
+      if (seen.has(a.id)) return false;
+      seen.add(a.id);
+      return true;
+    });
+
+    return { applications: unique };
   });
 
 const contactSchema = z.object({

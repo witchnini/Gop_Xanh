@@ -22,6 +22,13 @@
       "when": 1790208000000,
       "tag": "0002_three_roles",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1790294400000,
+      "tag": "0003_admin_reads_updates",
+      "breakpoints": true
     }
   ]
 }

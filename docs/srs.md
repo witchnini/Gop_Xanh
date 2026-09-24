@@ -59,3 +59,18 @@ Green Filter đánh giá tính khả thi, minh bạch và tác động môi trư
 Xem [ERD](DB-erd/README.md). `raised`, `supporters` là số tổng hợp; chưa thấy cơ chế đối soát giao dịch hoặc trigger cộng dồn trong migration hiện có.
 
 Cần chốt tiêu chí lọc xanh, điều kiện hoàn thành, chia sẻ rủi ro, lưu giữ dữ liệu cá nhân, phần thưởng, nghiệm thu chuyên môn. Backlog mô tả kế hoạch đề xuất, chưa phân công hoặc ấn định thời gian.
+
+## 7. Panel quản trị
+
+Panel quản trị dùng layout riêng tại /admin, chỉ dành cho tài khoản có role admin. Website công khai không hiển thị header/footer trong khu vực này. Route guard, server function và RLS cùng tham gia bảo vệ dữ liệu.
+
+| Route                | Chức năng                                                                                   |
+| -------------------- | ------------------------------------------------------------------------------------------- |
+| /admin               | Tổng quan hồ sơ cần xử lý, chiến dịch, đóng góp demo, cộng tác viên và số tài khoản         |
+| /admin/ho-so         | Green Filter theo ba nhóm khả thi, minh bạch, tác động; duyệt, yêu cầu bổ sung hoặc từ chối |
+| /admin/chien-dich    | Tìm kiếm/lọc chiến dịch, theo dõi huy động, xem công khai và đánh dấu hoàn thành            |
+| /admin/dong-gop      | Theo dõi bản ghi đóng góp tài chính mô phỏng                                                |
+| /admin/cong-tac-vien | Xem đăng ký chuyên môn và thông tin liên hệ                                                 |
+| /admin/tac-dong      | Theo dõi nhật ký tiến độ và tác động kỳ vọng của chiến dịch                                 |
+
+Checklist Green Filter hỗ trợ quyết định trong phiên làm việc; schema MVP hiện chỉ lưu trạng thái và ghi chú phản hồi, chưa lưu điểm chi tiết từng tiêu chí. Chỉ số tác động định lượng, bằng chứng xác minh độc lập, tạm dừng chiến dịch và quản lý role người dùng cần migration/quy trình riêng trước khi triển khai.

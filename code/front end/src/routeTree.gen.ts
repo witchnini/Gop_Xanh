@@ -11,14 +11,22 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BoLocXanhRouteImport } from './routes/bo-loc-xanh'
 import { Route as CongTacVienRouteImport } from './routes/cong-tac-vien'
 import { Route as DoiTacRouteImport } from './routes/doi-tac'
 import { Route as LienHeRouteImport } from './routes/lien-he'
 import { Route as AuthenticatedHoSoCuaToiRouteImport } from './routes/_authenticated/ho-so-cua-toi'
+import { Route as AuthenticatedHoatDongCuaToiRouteImport } from './routes/_authenticated/hoat-dong-cua-toi'
 import { Route as AuthenticatedNopHoSoRouteImport } from './routes/_authenticated/nop-ho-so'
 import { Route as AuthenticatedQuanTriRouteImport } from './routes/_authenticated/quan-tri'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminChienDichRouteImport } from './routes/admin/chien-dich'
+import { Route as AdminCongTacVienRouteImport } from './routes/admin/cong-tac-vien'
+import { Route as AdminDongGopRouteImport } from './routes/admin/dong-gop'
+import { Route as AdminHoSoRouteImport } from './routes/admin/ho-so'
+import { Route as AdminTacDongRouteImport } from './routes/admin/tac-dong'
 import { Route as ChienDichIndexRouteImport } from './routes/chien-dich.index'
 import { Route as ChienDichSlugRouteImport } from './routes/chien-dich.$slug'
 import { Route as DongGopSlugRouteImport } from './routes/dong-gop.$slug'
@@ -30,6 +38,11 @@ const IndexRoute = IndexRouteImport.update({
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRouteRoute = AdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -62,6 +75,12 @@ const AuthenticatedHoSoCuaToiRoute = AuthenticatedHoSoCuaToiRouteImport.update({
   path: '/ho-so-cua-toi',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedHoatDongCuaToiRoute =
+  AuthenticatedHoatDongCuaToiRouteImport.update({
+    id: '/hoat-dong-cua-toi',
+    path: '/hoat-dong-cua-toi',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedNopHoSoRoute = AuthenticatedNopHoSoRouteImport.update({
   id: '/nop-ho-so',
   path: '/nop-ho-so',
@@ -71,6 +90,36 @@ const AuthenticatedQuanTriRoute = AuthenticatedQuanTriRouteImport.update({
   id: '/quan-tri',
   path: '/quan-tri',
   getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminChienDichRoute = AdminChienDichRouteImport.update({
+  id: '/chien-dich',
+  path: '/chien-dich',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminCongTacVienRoute = AdminCongTacVienRouteImport.update({
+  id: '/cong-tac-vien',
+  path: '/cong-tac-vien',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminDongGopRoute = AdminDongGopRouteImport.update({
+  id: '/dong-gop',
+  path: '/dong-gop',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminHoSoRoute = AdminHoSoRouteImport.update({
+  id: '/ho-so',
+  path: '/ho-so',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminTacDongRoute = AdminTacDongRouteImport.update({
+  id: '/tac-dong',
+  path: '/tac-dong',
+  getParentRoute: () => AdminRouteRoute,
 } as any)
 const ChienDichIndexRoute = ChienDichIndexRouteImport.update({
   id: '/chien-dich/',
@@ -90,16 +139,24 @@ const DongGopSlugRoute = DongGopSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/bo-loc-xanh': typeof BoLocXanhRoute
   '/cong-tac-vien': typeof CongTacVienRoute
   '/doi-tac': typeof DoiTacRoute
   '/lien-he': typeof LienHeRoute
   '/ho-so-cua-toi': typeof AuthenticatedHoSoCuaToiRoute
+  '/hoat-dong-cua-toi': typeof AuthenticatedHoatDongCuaToiRoute
   '/nop-ho-so': typeof AuthenticatedNopHoSoRoute
   '/quan-tri': typeof AuthenticatedQuanTriRoute
+  '/admin/chien-dich': typeof AdminChienDichRoute
+  '/admin/cong-tac-vien': typeof AdminCongTacVienRoute
+  '/admin/dong-gop': typeof AdminDongGopRoute
+  '/admin/ho-so': typeof AdminHoSoRoute
+  '/admin/tac-dong': typeof AdminTacDongRoute
   '/chien-dich/$slug': typeof ChienDichSlugRoute
   '/dong-gop/$slug': typeof DongGopSlugRoute
+  '/admin/': typeof AdminIndexRoute
   '/chien-dich/': typeof ChienDichIndexRoute
 }
 export interface FileRoutesByTo {
@@ -110,42 +167,65 @@ export interface FileRoutesByTo {
   '/doi-tac': typeof DoiTacRoute
   '/lien-he': typeof LienHeRoute
   '/ho-so-cua-toi': typeof AuthenticatedHoSoCuaToiRoute
+  '/hoat-dong-cua-toi': typeof AuthenticatedHoatDongCuaToiRoute
   '/nop-ho-so': typeof AuthenticatedNopHoSoRoute
   '/quan-tri': typeof AuthenticatedQuanTriRoute
+  '/admin/chien-dich': typeof AdminChienDichRoute
+  '/admin/cong-tac-vien': typeof AdminCongTacVienRoute
+  '/admin/dong-gop': typeof AdminDongGopRoute
+  '/admin/ho-so': typeof AdminHoSoRoute
+  '/admin/tac-dong': typeof AdminTacDongRoute
   '/chien-dich/$slug': typeof ChienDichSlugRoute
   '/dong-gop/$slug': typeof DongGopSlugRoute
+  '/admin': typeof AdminIndexRoute
   '/chien-dich': typeof ChienDichIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/admin': typeof AdminRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/bo-loc-xanh': typeof BoLocXanhRoute
   '/cong-tac-vien': typeof CongTacVienRoute
   '/doi-tac': typeof DoiTacRoute
   '/lien-he': typeof LienHeRoute
   '/_authenticated/ho-so-cua-toi': typeof AuthenticatedHoSoCuaToiRoute
+  '/_authenticated/hoat-dong-cua-toi': typeof AuthenticatedHoatDongCuaToiRoute
   '/_authenticated/nop-ho-so': typeof AuthenticatedNopHoSoRoute
   '/_authenticated/quan-tri': typeof AuthenticatedQuanTriRoute
+  '/admin/chien-dich': typeof AdminChienDichRoute
+  '/admin/cong-tac-vien': typeof AdminCongTacVienRoute
+  '/admin/dong-gop': typeof AdminDongGopRoute
+  '/admin/ho-so': typeof AdminHoSoRoute
+  '/admin/tac-dong': typeof AdminTacDongRoute
   '/chien-dich/$slug': typeof ChienDichSlugRoute
   '/dong-gop/$slug': typeof DongGopSlugRoute
+  '/admin/': typeof AdminIndexRoute
   '/chien-dich/': typeof ChienDichIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/auth'
     | '/bo-loc-xanh'
     | '/cong-tac-vien'
     | '/doi-tac'
     | '/lien-he'
     | '/ho-so-cua-toi'
+    | '/hoat-dong-cua-toi'
     | '/nop-ho-so'
     | '/quan-tri'
+    | '/admin/chien-dich'
+    | '/admin/cong-tac-vien'
+    | '/admin/dong-gop'
+    | '/admin/ho-so'
+    | '/admin/tac-dong'
     | '/chien-dich/$slug'
     | '/dong-gop/$slug'
+    | '/admin/'
     | '/chien-dich/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -156,31 +236,47 @@ export interface FileRouteTypes {
     | '/doi-tac'
     | '/lien-he'
     | '/ho-so-cua-toi'
+    | '/hoat-dong-cua-toi'
     | '/nop-ho-so'
     | '/quan-tri'
+    | '/admin/chien-dich'
+    | '/admin/cong-tac-vien'
+    | '/admin/dong-gop'
+    | '/admin/ho-so'
+    | '/admin/tac-dong'
     | '/chien-dich/$slug'
     | '/dong-gop/$slug'
+    | '/admin'
     | '/chien-dich'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/admin'
     | '/auth'
     | '/bo-loc-xanh'
     | '/cong-tac-vien'
     | '/doi-tac'
     | '/lien-he'
     | '/_authenticated/ho-so-cua-toi'
+    | '/_authenticated/hoat-dong-cua-toi'
     | '/_authenticated/nop-ho-so'
     | '/_authenticated/quan-tri'
+    | '/admin/chien-dich'
+    | '/admin/cong-tac-vien'
+    | '/admin/dong-gop'
+    | '/admin/ho-so'
+    | '/admin/tac-dong'
     | '/chien-dich/$slug'
     | '/dong-gop/$slug'
+    | '/admin/'
     | '/chien-dich/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   BoLocXanhRoute: typeof BoLocXanhRoute
   CongTacVienRoute: typeof CongTacVienRoute
@@ -205,6 +301,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -249,6 +352,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHoSoCuaToiRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/hoat-dong-cua-toi': {
+      id: '/_authenticated/hoat-dong-cua-toi'
+      path: '/hoat-dong-cua-toi'
+      fullPath: '/hoat-dong-cua-toi'
+      preLoaderRoute: typeof AuthenticatedHoatDongCuaToiRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/nop-ho-so': {
       id: '/_authenticated/nop-ho-so'
       path: '/nop-ho-so'
@@ -262,6 +372,48 @@ declare module '@tanstack/react-router' {
       fullPath: '/quan-tri'
       preLoaderRoute: typeof AuthenticatedQuanTriRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/chien-dich': {
+      id: '/admin/chien-dich'
+      path: '/chien-dich'
+      fullPath: '/admin/chien-dich'
+      preLoaderRoute: typeof AdminChienDichRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/cong-tac-vien': {
+      id: '/admin/cong-tac-vien'
+      path: '/cong-tac-vien'
+      fullPath: '/admin/cong-tac-vien'
+      preLoaderRoute: typeof AdminCongTacVienRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/dong-gop': {
+      id: '/admin/dong-gop'
+      path: '/dong-gop'
+      fullPath: '/admin/dong-gop'
+      preLoaderRoute: typeof AdminDongGopRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/ho-so': {
+      id: '/admin/ho-so'
+      path: '/ho-so'
+      fullPath: '/admin/ho-so'
+      preLoaderRoute: typeof AdminHoSoRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/tac-dong': {
+      id: '/admin/tac-dong'
+      path: '/tac-dong'
+      fullPath: '/admin/tac-dong'
+      preLoaderRoute: typeof AdminTacDongRouteImport
+      parentRoute: typeof AdminRouteRoute
     }
     '/chien-dich/': {
       id: '/chien-dich/'
@@ -289,12 +441,14 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedHoSoCuaToiRoute: typeof AuthenticatedHoSoCuaToiRoute
+  AuthenticatedHoatDongCuaToiRoute: typeof AuthenticatedHoatDongCuaToiRoute
   AuthenticatedNopHoSoRoute: typeof AuthenticatedNopHoSoRoute
   AuthenticatedQuanTriRoute: typeof AuthenticatedQuanTriRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedHoSoCuaToiRoute: AuthenticatedHoSoCuaToiRoute,
+  AuthenticatedHoatDongCuaToiRoute: AuthenticatedHoatDongCuaToiRoute,
   AuthenticatedNopHoSoRoute: AuthenticatedNopHoSoRoute,
   AuthenticatedQuanTriRoute: AuthenticatedQuanTriRoute,
 }
@@ -302,9 +456,32 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface AdminRouteRouteChildren {
+  AdminChienDichRoute: typeof AdminChienDichRoute
+  AdminCongTacVienRoute: typeof AdminCongTacVienRoute
+  AdminDongGopRoute: typeof AdminDongGopRoute
+  AdminHoSoRoute: typeof AdminHoSoRoute
+  AdminTacDongRoute: typeof AdminTacDongRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminChienDichRoute: AdminChienDichRoute,
+  AdminCongTacVienRoute: AdminCongTacVienRoute,
+  AdminDongGopRoute: AdminDongGopRoute,
+  AdminHoSoRoute: AdminHoSoRoute,
+  AdminTacDongRoute: AdminTacDongRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
+  AdminRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AdminRouteRoute: AdminRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   BoLocXanhRoute: BoLocXanhRoute,
   CongTacVienRoute: CongTacVienRoute,

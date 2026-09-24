@@ -151,6 +151,29 @@ function MyCampaignsPage() {
                   {c.review_note}
                 </p>
               )}
+              <details className="mt-4 group">
+                <summary className="text-sm font-bold text-pine cursor-pointer select-none">
+                  Xem chi tiết hồ sơ đã nộp
+                </summary>
+                <div className="mt-3 space-y-3 text-sm text-ink/75 border-l-2 border-pine/20 pl-4">
+                  <div>
+                    <span className="font-bold text-ink">Tóm tắt ngắn:</span>
+                    <p className="whitespace-pre-line mt-1">{c.summary}</p>
+                  </div>
+                  <div>
+                    <span className="font-bold text-ink">Câu chuyện & khó khăn:</span>
+                    <p className="whitespace-pre-line mt-1">{c.story}</p>
+                  </div>
+                  <div>
+                    <span className="font-bold text-ink">Phương thức canh tác xanh:</span>
+                    <p className="whitespace-pre-line mt-1">{c.method}</p>
+                  </div>
+                  <div>
+                    <span className="font-bold text-ink">Tác động kỳ vọng:</span>
+                    <p className="whitespace-pre-line mt-1">{c.impact}</p>
+                  </div>
+                </div>
+              </details>
             </article>
           ))}
         </div>

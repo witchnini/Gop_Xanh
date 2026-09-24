@@ -16,6 +16,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { campaigns } from "@/lib/data";
 import { submitVolunteer } from "@backend/gopxanh.functions";
+import { supabase } from "@/integrations/supabase/client";
 
 const searchSchema = z.object({ campaign: z.string().optional() });
 
@@ -64,7 +65,10 @@ function VolunteerPage() {
     }
     setSending(true);
     try {
-      await send({ data: { fullName, email, phone, campaignSlug, role, experience } });
+      // Lấy userId nếu đang đăng nhập để liên kết đơn với tài khoản
+      const { data: { session } } = await supabase.auth.getSession();
+      const userId = session?.user?.id;
+      await send({ data: { fullName, email, phone, campaignSlug, role, experience, userId } });
       setDone(true);
     } catch {
       setError("Thông tin chưa hợp lệ, vui lòng kiểm tra lại các trường bắt buộc.");
