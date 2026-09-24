@@ -1,0 +1,280 @@
+﻿PRD – Nền tảng Góp Xanh
+TÀI LIỆU YÊU CẦU SẢN PHẨM
+(Product Requirements Document – PRD)
+GÓP XANH
+Nền tảng gây quỹ cộng đồng vi mô cho nông nghiệp xanh
+Nhóm dự án: SHARK XANH
+Trường: Học viện Ngân hàng
+Địa phương triển khai: Hà Nội
+Cuộc thi: StartUp BA 2026
+Phiên bản 1.0
+________________
+
+
+1. Tổng quan dự án
+1.1. Bối cảnh & mục tiêu
+Góp Xanh là nền tảng trung gian gây quỹ cộng đồng vi mô (crowdfunding), kết nối người trẻ 18-35 tuổi sống tại đô thị (trọng tâm Hà Nội) mong muốn hành động vì môi trường nhưng nguồn lực tài chính hạn chế, với các mô hình sinh kế nông nghiệp xanh quy mô nhỏ (hộ nông dân, hợp tác xã) đang thiếu vốn khởi động.
+Website/MVP là công cụ hiện thực hóa mô hình "Góp đa nguồn lực – Lọc xanh – Theo dõi tác động – Chia sẻ rủi ro", đóng vai trò minh chứng (proof of concept) cho ban giám khảo cuộc thi và là nền tảng thử nghiệm ban đầu trước khi mở rộng.
+1.2. Phạm vi tài liệu
+Tài liệu này mô tả chi tiết các module tính năng của website Góp Xanh theo sơ đồ tính năng đã thống nhất, bao gồm: mô tả chức năng, actor liên quan, user story, luồng thao tác và tiêu chí chấp nhận cho từng tính năng. Tài liệu phân định rõ phạm vi bắt buộc trong giai đoạn MVP (1,5 tháng) và phần mở rộng cho giai đoạn sau (Phase 2).
+1.3. Phạm vi triển khai MVP (1,5 tháng)
+Do giới hạn thời gian, MVP tập trung vào trải nghiệm trình diễn (demo) các cơ chế cốt lõi của mô hình, KHÔNG bao gồm: cổng thanh toán thật, hệ thống tài khoản đầy đủ, quy trình xét duyệt hồ sơ tự động. Các tính năng này được mô phỏng (mock) bằng form/nội dung tĩnh để thể hiện đúng luồng trải nghiệm người dùng.
+2. Đối tượng người dùng (Personas)
+P1. Người đóng góp (Donor)
+Người trẻ 18-35 tuổi, sống tại đô thị, quan tâm đến lối sống xanh nhưng nguồn lực tài chính hạn chế. Muốn đóng góp nhỏ (tài chính hoặc phi tài chính) và theo dõi tác động thực tế của khoản đóng góp. Giảng viên, sinh viên Học viện Ngân hàng hoặc cá nhân bên ngoài muốn đóng góp phi tài chính (mentor, truyền thông, thiết kế, công nghệ, logistics...) cho các nông hộ.
+P2. Nông hộ / Hợp tác xã (Campaign Owner)
+Chủ thể triển khai mô hình sinh kế nông nghiệp xanh quy mô nhỏ, cần vốn khởi động nhưng khó tiếp cận tín dụng ngân hàng do thiếu tài sản thế chấp. Cần một kênh gây quỹ minh bạch và nguồn lực phi tài chính (kiến thức, kỹ năng, kết nối thị trường).
+P3. Ban quản trị Góp Xanh (Admin / Bộ lọc xanh)
+Đội ngũ vận hành nền tảng, chịu trách nhiệm xét duyệt hồ sơ chiến dịch theo bộ tiêu chí (tính khả thi, minh bạch, tác động), quản lý nội dung và theo dõi tiến độ các chiến dịch.
+3. Sơ đồ tính năng tổng quan
+Bảng dưới đây tổng hợp toàn bộ các module tính năng theo sơ đồ tính năng của website, sắp xếp theo mức độ ưu tiên triển khai.
+Mã
+	Module / Tính năng
+	Actor chính
+	Ưu tiên
+	M1
+	Trang chủ & Giới thiệu dự án
+	Khách/Người dùng chung
+	MVP
+	M2
+	Danh sách chiến dịch xanh
+	Người đóng góp
+	MVP
+	M3
+	Chi tiết chiến dịch (hồ sơ, tiến độ, tác động)
+	Người đóng góp, Nông hộ
+	MVP
+	M4
+	Đóng góp tài chính (form/mô phỏng thanh toán)
+	Người đóng góp
+	MVP
+	M5
+	Đóng góp phi tài chính (mentor, CTV...)
+	Người đóng góp, Đối tác
+	MVP
+	M6
+	Giới thiệu "Bộ lọc xanh" & tiêu chí xét duyệt
+	Nông hộ, Người đóng góp
+	MVP
+	M7
+	Cập nhật tiến độ & báo cáo tác động
+	Nông hộ, Admin, Người đóng góp
+	MVP (rút gọn)
+	M8
+	Nộp hồ sơ đăng ký chiến dịch (nông hộ/HTX)
+	Nông hộ
+	Phase 2
+	M9
+	Quản trị & xét duyệt hồ sơ (Admin)
+	Ban quản trị Góp Xanh
+	Phase 2
+	M10
+	Tài khoản người dùng (đăng ký/đăng nhập)
+	Tất cả
+	Phase 2
+	M11
+	Giới thiệu đối tác đồng hành (Học viện Ngân hàng)
+	Khách/Người dùng chung
+	MVP
+	M12
+	Liên hệ & Form đăng ký hợp tác
+	Khách/Người dùng chung
+	MVP
+	
+
+4. Chi tiết tính năng theo module
+M1. Trang chủ & Giới thiệu dự án
+Ưu tiên: MVP
+Actor: Khách truy cập, Người đóng góp, Nông hộ, Giám khảo
+Trang giới thiệu tổng quan về Góp Xanh: sứ mệnh, vấn đề giải quyết, mô hình "Góp đa nguồn lực – Lọc xanh – Theo dõi tác động – Chia sẻ rủi ro", số liệu nổi bật (số chiến dịch, tổng vốn huy động, số nông hộ được hỗ trợ), và lời kêu gọi hành động (CTA) dẫn tới danh sách chiến dịch.
+User story:
+* Là một khách truy cập, tôi muốn hiểu nhanh Góp Xanh là gì và giải quyết vấn đề gì để quyết định có tìm hiểu thêm hay không.
+* Là một người đóng góp tiềm năng, tôi muốn thấy ngay các chiến dịch nổi bật để bắt đầu khám phá.
+Luồng chức năng:
+1. Người dùng truy cập trang chủ.
+2. Hệ thống hiển thị banner giới thiệu, mô hình hoạt động (infographic 4 bước), số liệu tổng quan.
+3. Người dùng cuộn xuống xem các chiến dịch nổi bật/mới nhất (liên kết tới M2/M3).
+4. Người dùng nhấn CTA "Khám phá chiến dịch" hoặc "Trở thành cộng tác viên" để điều hướng.
+Tiêu chí chấp nhận (Acceptance Criteria):
+* Hiển thị đầy đủ: tên dự án, thông điệp, mô hình 4 bước, tối thiểu 3 chiến dịch nổi bật.
+* Có CTA rõ ràng dẫn tới trang Danh sách chiến dịch (M2) và trang Cộng tác viên (M5).
+* Hiển thị đúng và đầy đủ trên cả desktop và mobile.
+M2. Danh sách chiến dịch xanh
+Ưu tiên: MVP
+Actor: Người đóng góp
+Hiển thị danh sách các "chiến dịch xanh" đã được duyệt, dưới dạng thẻ (card) gồm ảnh đại diện, tên mô hình, tiến độ gây quỹ (thanh progress bar), số tiền đã huy động/mục tiêu, và trạng thái (đang gây quỹ/đã hoàn thành).
+User story:
+* Là một người đóng góp, tôi muốn xem toàn bộ chiến dịch đang mở để chọn dự án phù hợp với mối quan tâm của mình.
+* Là một người đóng góp, tôi muốn lọc/sắp xếp chiến dịch theo loại hình sản xuất hoặc mức độ hoàn thành để tìm nhanh hơn.
+Luồng chức năng:
+1. Người dùng vào trang Danh sách chiến dịch từ menu chính hoặc từ Trang chủ.
+2. Hệ thống hiển thị lưới các thẻ chiến dịch (tối thiểu 3 chiến dịch mẫu cho MVP).
+3. Người dùng có thể lọc theo loại mô hình (trồng trọt/chăn nuôi/thủy sản...) hoặc trạng thái.
+4. Người dùng nhấn vào một thẻ để xem chi tiết (chuyển sang M3).
+Tiêu chí chấp nhận (Acceptance Criteria):
+* Mỗi thẻ chiến dịch hiển thị: ảnh, tên nông hộ/HTX, % tiến độ, số tiền đã gây quỹ/mục tiêu.
+* Bộ lọc cơ bản hoạt động đúng (theo loại mô hình hoặc trạng thái).
+* Nhấn vào thẻ điều hướng chính xác tới đúng trang chi tiết chiến dịch tương ứng.
+Lưu ý phạm vi MVP: Bộ lọc có thể chỉ cần 1-2 tiêu chí đơn giản (ví dụ theo loại mô hình) để tiết kiệm thời gian phát triển.
+M3. Chi tiết chiến dịch (hồ sơ, tiến độ, tác động)
+Ưu tiên: MVP
+Actor: Người đóng góp, Nông hộ
+Trang quan trọng nhất của nền tảng, trình bày đầy đủ hồ sơ một chiến dịch: thông tin chủ thể thực hiện, phương thức sản xuất, nhu cầu và mục đích sử dụng vốn, kế hoạch triển khai, mục tiêu gây quỹ, tiến độ hiện tại, phần thưởng/nông sản người đóng góp nhận lại, và tác động dự kiến với môi trường – cộng đồng.
+User story:
+* Là một người đóng góp, tôi muốn hiểu rõ nông hộ là ai, tiền của tôi dùng để làm gì, và tôi nhận lại gì để quyết định đóng góp.
+* Là một người đóng góp, tôi muốn xem các cập nhật tiến độ theo thời gian để tin tưởng vào tính minh bạch của chiến dịch.
+Luồng chức năng:
+1. Người dùng vào trang chi tiết từ M2.
+2. Hệ thống hiển thị: ảnh/video giới thiệu, hồ sơ nông hộ, mục tiêu vốn và tiến độ, kế hoạch sử dụng vốn theo hạng mục, các gói đóng góp và phần thưởng tương ứng, nhật ký cập nhật (nếu có).
+3. Người dùng chọn một gói đóng góp và nhấn "Đóng góp ngay" (chuyển sang M4) hoặc "Tham gia với vai trò cộng tác viên" (chuyển sang M5).
+Tiêu chí chấp nhận (Acceptance Criteria):
+* Hiển thị đầy đủ các trường thông tin: chủ thể, phương thức sản xuất, mục đích sử dụng vốn, kế hoạch triển khai, tác động dự kiến.
+* Thanh tiến độ gây quỹ tính đúng theo dữ liệu mẫu (số tiền đã góp / mục tiêu).
+* Có tối thiểu 2 gói đóng góp với mức tiền và phần thưởng khác nhau.
+* Nút CTA dẫn đúng tới form đóng góp (M4).
+M4. Đóng góp tài chính (form/mô phỏng thanh toán)
+Ưu tiên: MVP
+Actor: Người đóng góp
+Cho phép người dùng thực hiện đóng góp tài chính vào một chiến dịch cụ thể, với mức đóng góp linh hoạt từ nhỏ (50.000 – 100.000 đồng). Trong phạm vi MVP demo, form thu thập thông tin và hiển thị xác nhận mô phỏng, không tích hợp cổng thanh toán thật.
+User story:
+* Là một người đóng góp, tôi muốn chọn mức đóng góp và điền thông tin nhanh chóng, đơn giản.
+* Là một người đóng góp, tôi muốn nhận xác nhận rõ ràng sau khi đóng góp để yên tâm về giao dịch.
+Luồng chức năng:
+1. Người dùng chọn gói đóng góp hoặc nhập số tiền tùy ý từ trang chi tiết chiến dịch (M3).
+2. Hệ thống hiển thị form: họ tên, email/số điện thoại, số tiền, lời nhắn (tùy chọn).
+3. Người dùng nhấn "Xác nhận đóng góp".
+4. Hệ thống hiển thị trang/modal cảm ơn kèm tóm tắt đóng góp và (mô phỏng) mã giao dịch.
+Tiêu chí chấp nhận (Acceptance Criteria):
+* Form validate đầy đủ trường bắt buộc (họ tên, liên hệ, số tiền tối thiểu).
+* Sau khi submit, hệ thống hiển thị xác nhận thành công rõ ràng.
+* Số tiền đóng góp mô phỏng được cộng dồn vào tiến độ chiến dịch hiển thị ở M2/M3 (đối với bản demo có dữ liệu động).
+Lưu ý phạm vi MVP: Không cần tích hợp cổng thanh toán thật (Momo/VNPay...); có thể dùng Google Form nhúng hoặc modal xác nhận tĩnh để mô phỏng luồng.
+M5. Đóng góp phi tài chính / Đăng ký cộng tác viên
+Ưu tiên: MVP
+Actor: Người đóng góp, Đối tác chuyên môn
+Cho phép cá nhân đóng góp bằng chuyên môn, kỹ năng, thời gian (mentor, truyền thông, thiết kế, công nghệ, logistics, bán hàng...) thay vì tiền, thể hiện đúng tinh thần "góp đa nguồn lực" của dự án.
+User story:
+* Là một sinh viên/giảng viên, tôi muốn đăng ký hỗ trợ nông hộ bằng chuyên môn của mình mà không cần đóng góp tài chính.
+Luồng chức năng:
+1. Người dùng vào trang "Trở thành cộng tác viên" từ Trang chủ hoặc trang Chi tiết chiến dịch.
+2. Hệ thống hiển thị danh sách vai trò cần hỗ trợ theo từng chiến dịch (mentor, truyền thông, thiết kế...).
+3. Người dùng điền form đăng ký: họ tên, liên hệ, vai trò mong muốn, mô tả kinh nghiệm/kỹ năng.
+4. Hệ thống xác nhận đã nhận đăng ký.
+Tiêu chí chấp nhận (Acceptance Criteria):
+* Form hiển thị rõ các vai trò đang cần cho từng chiến dịch.
+* Form validate đầy đủ trường bắt buộc và hiển thị xác nhận sau khi gửi.
+M6. Giới thiệu "Bộ lọc xanh" & tiêu chí xét duyệt
+Ưu tiên: MVP
+Actor: Nông hộ, Người đóng góp
+Trang trình bày cơ chế "bộ lọc xanh" — bộ tiêu chí đánh giá dựa trên 3 nhóm: tính khả thi, mức độ minh bạch, và tác động tích cực tới môi trường/cộng đồng. Đây là yếu tố tạo niềm tin cho người đóng góp và định hướng cho nông hộ khi chuẩn bị hồ sơ.
+User story:
+* Là một người đóng góp, tôi muốn biết chiến dịch đã được sàng lọc như thế nào trước khi kêu gọi vốn để yên tâm đóng góp.
+* Là một nông hộ, tôi muốn biết tiêu chí để chuẩn bị hồ sơ phù hợp.
+Luồng chức năng:
+1. Người dùng truy cập trang "Bộ lọc xanh" từ menu chính.
+2. Hệ thống hiển thị 3 nhóm tiêu chí kèm mô tả và ví dụ minh họa.
+3. Hệ thống hiển thị quy trình xét duyệt tổng quát (dạng sơ đồ các bước).
+Tiêu chí chấp nhận (Acceptance Criteria):
+* Hiển thị đầy đủ 3 nhóm tiêu chí: khả thi, minh bạch, tác động.
+* Có sơ đồ/hình ảnh minh họa quy trình xét duyệt từ nộp hồ sơ đến khi chiến dịch được đăng tải.
+M7. Cập nhật tiến độ & báo cáo tác động
+Ưu tiên: MVP (rút gọn)
+Actor: Nông hộ, Admin, Người đóng góp
+Cho phép hiển thị các mốc cập nhật theo thời gian của một chiến dịch (hình ảnh, mô tả tiến độ canh tác, sản lượng dự kiến) để người đóng góp theo dõi hành trình từ sản xuất đến sản phẩm cuối cùng.
+User story:
+* Là một người đóng góp, tôi muốn xem nhật ký cập nhật của chiến dịch mình đã góp vốn để biết tiền của mình được sử dụng ra sao.
+Luồng chức năng:
+1. Trên trang chi tiết chiến dịch (M3), người dùng cuộn tới mục "Nhật ký cập nhật".
+2. Hệ thống hiển thị danh sách cập nhật theo thời gian (dạng timeline), mỗi mục gồm ngày, ảnh, mô tả ngắn.
+Tiêu chí chấp nhận (Acceptance Criteria):
+* Hiển thị tối thiểu 2-3 mốc cập nhật mẫu theo dạng timeline trên trang chi tiết chiến dịch.
+Lưu ý phạm vi MVP: Trong giai đoạn MVP, nội dung cập nhật là dữ liệu tĩnh do đội ngũ nhập sẵn để minh họa, chưa cần chức năng cho nông hộ tự đăng cập nhật (chuyển sang Phase 2 cùng M8/M9).
+M8. Nộp hồ sơ đăng ký chiến dịch (nông hộ/HTX)
+Ưu tiên: Phase 2
+Actor: Nông hộ / HTX
+Form trực tuyến để nông hộ/HTX tự nộp hồ sơ đăng ký mở chiến dịch, cung cấp thông tin về chủ thể, phương thức sản xuất, nhu cầu vốn, kế hoạch triển khai và tác động dự kiến.
+Luồng chức năng:
+1. Nông hộ đăng ký/đăng nhập tài khoản (M10).
+2. Nông hộ điền form hồ sơ nhiều bước (thông tin cơ bản, kế hoạch, tài chính, tác động).
+3. Hệ thống lưu hồ sơ ở trạng thái "Chờ duyệt" và gửi tới Admin (M9).
+Tiêu chí chấp nhận (Acceptance Criteria):
+* Form hỗ trợ lưu nháp và nộp chính thức.
+* Hồ sơ sau khi nộp hiển thị đúng trạng thái cho nông hộ theo dõi.
+M9. Quản trị & xét duyệt hồ sơ (Admin)
+Ưu tiên: Phase 2
+Actor: Ban quản trị Góp Xanh
+Khu vực quản trị nội bộ để Ban điều hành xét duyệt hồ sơ chiến dịch theo bộ tiêu chí "Bộ lọc xanh" (M6), quản lý nội dung chiến dịch đã đăng, và theo dõi tổng quan hoạt động nền tảng.
+Luồng chức năng:
+1. Admin đăng nhập vào khu vực quản trị.
+2. Admin xem danh sách hồ sơ chờ duyệt, mở chi tiết để đánh giá theo 3 nhóm tiêu chí.
+3. Admin phê duyệt/từ chối/yêu cầu bổ sung, hệ thống cập nhật trạng thái và (mô phỏng) gửi thông báo cho nông hộ.
+4. Admin quản lý danh sách chiến dịch đang chạy (chỉnh sửa, tạm dừng, đóng chiến dịch).
+Tiêu chí chấp nhận (Acceptance Criteria):
+* Admin có thể lọc hồ sơ theo trạng thái (chờ duyệt/đã duyệt/từ chối).
+* Thao tác duyệt/từ chối cập nhật đúng trạng thái hiển thị công khai trên M2/M3.
+M10. Tài khoản người dùng (đăng ký/đăng nhập)
+Ưu tiên: Phase 2
+Actor: Tất cả
+Cho phép người dùng tạo tài khoản để lưu lịch sử đóng góp, theo dõi chiến dịch yêu thích (đối với người đóng góp) hoặc quản lý hồ sơ chiến dịch (đối với nông hộ).
+Luồng chức năng:
+1. Người dùng chọn Đăng ký, điền thông tin cơ bản (email/số điện thoại, mật khẩu).
+2. Hệ thống xác thực và tạo tài khoản, phân loại theo vai trò (Người đóng góp/Nông hộ).
+3. Người dùng đăng nhập để truy cập trang cá nhân.
+Tiêu chí chấp nhận (Acceptance Criteria):
+* Đăng ký/đăng nhập hoạt động đúng, có xác thực cơ bản (định dạng email, độ dài mật khẩu).
+* Trang cá nhân hiển thị đúng lịch sử đóng góp hoặc danh sách hồ sơ chiến dịch tương ứng với vai trò.
+M11. Giới thiệu đối tác đồng hành (Học viện Ngân hàng)
+Ưu tiên: MVP
+Actor: Khách truy cập, Giám khảo
+Trang giới thiệu vai trò đồng hành chuyên môn của Học viện Ngân hàng: hỗ trợ xây dựng tiêu chí tài chính, đào tạo quản lý tài chính/khởi nghiệp cho nông hộ, và huy động giảng viên/sinh viên tham gia với vai trò mentor.
+Luồng chức năng:
+1. Người dùng truy cập trang "Đối tác đồng hành" từ menu chính.
+2. Hệ thống hiển thị thông tin về Học viện Ngân hàng, vai trò trong dự án, và lợi ích hai chiều.
+Tiêu chí chấp nhận (Acceptance Criteria):
+* Hiển thị đầy đủ thông tin vai trò của Học viện Ngân hàng như mô tả trong hồ sơ dự án.
+M12. Liên hệ & Đăng ký hợp tác
+Ưu tiên: MVP
+Actor: Khách truy cập, Đối tác doanh nghiệp
+Trang cung cấp thông tin liên hệ của nhóm dự án và form để các cá nhân/tổ chức (nhà tài trợ, đối tác dịch vụ, nông hộ muốn tìm hiểu) gửi yêu cầu hợp tác.
+Luồng chức năng:
+1. Người dùng vào trang Liên hệ.
+2. Người dùng điền form: họ tên, tổ chức (nếu có), nội dung liên hệ.
+3. Hệ thống xác nhận đã gửi thành công.
+Tiêu chí chấp nhận (Acceptance Criteria):
+* Form liên hệ hoạt động đúng, validate trường bắt buộc, hiển thị xác nhận gửi thành công.
+5. Yêu cầu phi chức năng
+* Giao diện responsive, hiển thị tốt trên cả desktop và điện thoại di động — đối tượng người dùng chính (18-35 tuổi, đô thị) chủ yếu truy cập qua mobile.
+* Thời gian tải trang tối ưu (dưới 3 giây với kết nối trung bình) để tránh rời trang khi xem chiến dịch.
+* Ngôn ngữ giao diện: Tiếng Việt.
+* Thẩm mỹ: tông màu xanh lá chủ đạo, hình ảnh thật/gần thực tế về nông nghiệp để tăng độ tin cậy.
+* Bảo mật cơ bản: mã hóa dữ liệu form liên hệ/đóng góp khi truyền tải (HTTPS); trong Phase 2 khi có tài khoản thật cần mã hóa mật khẩu và tuân thủ quy định bảo vệ dữ liệu cá nhân.
+* Khả năng mở rộng: kiến trúc thông tin cho phép bổ sung dễ dàng các chiến dịch mới và mở rộng sang M8-M10 ở Phase 2 mà không cần thiết kế lại toàn bộ hệ thống.
+6. Lộ trình triển khai MVP (6 tuần)
+Lộ trình dưới đây ánh xạ trực tiếp các module tính năng MVP (M1, M2, M3, M4, M5, M6, M11, M12) vào từng tuần triển khai, phù hợp với mốc 1,5 tháng của cuộc thi.
+Thời gian
+	Nội dung chính
+	Tuần 1
+	Chốt cấu trúc thông tin (sitemap), viết nội dung 2-3 chiến dịch mẫu, chuẩn bị hình ảnh.
+	Tuần 2
+	Dựng wireframe, chọn nền tảng (Webflow/WordPress/Bubble), dựng khung Trang chủ & Danh sách chiến dịch (M1, M2).
+	Tuần 3
+	Hoàn thiện Trang chi tiết chiến dịch với tiến độ gây quỹ, kế hoạch sử dụng vốn (M3).
+	Tuần 4
+	Xây form đóng góp tài chính & phi tài chính, trang Bộ lọc xanh (M4, M5, M6).
+	Tuần 5
+	Hoàn thiện responsive, trang đối tác (Học viện Ngân hàng), trang liên hệ (M11, M12).
+	Tuần 6
+	Kiểm thử người dùng, sửa lỗi UX, chuẩn bị demo & video dự phòng.
+	________________
+
+
+7. Rủi ro & Giả định
+7.1. Rủi ro
+* Thời gian 1,5 tháng hạn chế, có thể phải cắt giảm thêm tính năng nếu phát sinh chậm trễ ở khâu nội dung (hồ sơ chiến dịch mẫu).
+* Dữ liệu chiến dịch trong MVP là dữ liệu mẫu/giả định, cần đảm bảo số liệu hợp lý và nhất quán để tránh mất điểm về tính khả thi khi giám khảo phản biện.
+* Việc mô phỏng đóng góp tài chính (không thanh toán thật) cần được trình bày rõ ràng khi demo để tránh gây hiểu nhầm về mức độ hoàn thiện sản phẩm.
+7.2. Giả định
+* Website được sử dụng cho mục đích trình diễn (demo) tại cuộc thi, chưa vận hành thu hút người dùng thật.
+* Các nội dung về Học viện Ngân hàng và cơ chế "Bộ lọc xanh" được nhóm dự án cung cấp làm nội dung tĩnh, không yêu cầu tích hợp hệ thống của trường.
+* Các tính năng thuộc Phase 2 (M8, M9, M10) sẽ được lên kế hoạch phát triển sau khi dự án được lựa chọn đầu tư/tiếp tục phát triển.
+Trang  /
