@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1789834679397,
+      "tag": "0000_roles_and_campaigns",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789914483285,
+      "tag": "0001_admins_read_profiles",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790208000000,
+      "tag": "0002_three_roles",
+      "breakpoints": true
+    }
+  ]
+}

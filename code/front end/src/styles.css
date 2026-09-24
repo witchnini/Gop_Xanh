@@ -1,0 +1,129 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Brand tokens follow docs/UI/UX style guideline/BrandGuideline.pdf. */
+
+@theme inline {
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Montserrat", Arial, sans-serif;
+  --font-sans: "Montserrat", Arial, sans-serif;
+  --color-moss: var(--moss);
+  --color-leaf: var(--leaf);
+  --color-sage: var(--sage);
+  --color-cream: var(--cream);
+  --color-clay: var(--clay);
+  --color-ink: var(--ink);
+  --color-pine: var(--pine);
+  --shadow-widget: 0 24px 60px -30px color-mix(in oklab, var(--moss) 50%, transparent);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+  --radius-2xl: var(--radius);
+  --radius-3xl: var(--radius);
+  --radius-4xl: var(--radius);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.5rem;
+  --moss: #0d530e;
+  --leaf: #306d29;
+  --sage: #fff0d1;
+  --cream: #fbf5dd;
+  --clay: #d89344;
+  --ink: #000000;
+  --pine: #306d29;
+
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--ink);
+  --primary: var(--moss);
+  --primary-foreground: var(--cream);
+  --secondary: #fff0d1;
+  --secondary-foreground: var(--moss);
+  --muted: #fff0d1;
+  --muted-foreground: #306d29;
+  --accent: var(--clay);
+  --accent-foreground: #000000;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: #ffffff;
+  --border: color-mix(in oklab, var(--moss) 18%, transparent);
+  --input: color-mix(in oklab, var(--moss) 22%, transparent);
+  --ring: var(--leaf);
+  --chart-1: var(--leaf);
+  --chart-2: var(--moss);
+  --chart-3: var(--clay);
+  --chart-4: var(--sage);
+  --chart-5: var(--pine);
+  --sidebar: var(--cream);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--moss);
+  --sidebar-primary-foreground: var(--cream);
+  --sidebar-accent: var(--sage);
+  --sidebar-accent-foreground: var(--moss);
+  --sidebar-border: color-mix(in oklab, var(--moss) 18%, transparent);
+  --sidebar-ring: var(--leaf);
+}
+
+@layer base {
+  body {
+    font-family: var(--font-body);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+}
