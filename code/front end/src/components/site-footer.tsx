@@ -68,7 +68,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-white/15">
         <p className="mx-auto max-w-5xl px-6 py-3 text-xs leading-5 text-white/50 lg:px-8">
-          © 2026 Góp Xanh · Nhóm dự án GIEO · Dữ liệu chiến dịch trong bản demo là dữ liệu mẫu.
+          © 2026 Góp Xanh · Nhóm dự án Shark Xanh · Dữ liệu chiến dịch trong bản demo là dữ liệu mẫu.
         </p>
       </div>
     </footer>

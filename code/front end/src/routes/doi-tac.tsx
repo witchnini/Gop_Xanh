@@ -48,7 +48,7 @@ function PartnerPage() {
       </span>
       <h1 className="font-display text-5xl text-moss mt-6">Học viện Ngân hàng</h1>
       <p className="text-ink/65 mt-3 max-w-2xl leading-relaxed">
-        Góp Xanh là dự án của nhóm GIEO — Học viện Ngân hàng. Nhà trường đồng hành với vai trò
+        Góp Xanh là dự án của nhóm Shark Xanh — Học viện Ngân hàng. Nhà trường đồng hành với vai trò
         chuyên môn tài chính, giúp nền tảng giữ được tính khả thi và minh bạch trong từng chiến
         dịch.
       </p>

@@ -80,9 +80,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Nền tảng gây quỹ cộng đồng vi mô cho nông nghiệp xanh tại Hà Nội, dự án của nhóm GIEO.",
+          "Nền tảng gây quỹ cộng đồng vi mô cho nông nghiệp xanh tại Hà Nội, dự án của nhóm Shark Xanh.",
       },
-      { name: "author", content: "Nhóm dự án GIEO — Học viện Ngân hàng" },
+      { name: "author", content: "Nhóm dự án Shark Xanh — Học viện Ngân hàng" },
       { property: "og:title", content: "Góp Xanh" },
       {
         property: "og:description",

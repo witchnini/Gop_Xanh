@@ -27,7 +27,7 @@ export const Route = createFileRoute("/lien-he")({
       { property: "og:title", content: "Liên hệ & Đăng ký hợp tác — Góp Xanh" },
       {
         property: "og:description",
-        content: "Gửi yêu cầu hợp tác tới nhóm dự án GIEO — Học viện Ngân hàng.",
+        content: "Gửi yêu cầu hợp tác tới nhóm dự án Shark Xanh — Học viện Ngân hàng.",
       },
     ],
   }),
@@ -75,7 +75,7 @@ function ContactPage() {
     <div className="max-w-5xl mx-auto px-6 py-12">
       <h1 className="font-display text-5xl text-moss">Liên hệ & đăng ký hợp tác</h1>
       <p className="text-ink/65 mt-3 max-w-2xl leading-relaxed">
-        Nhóm dự án GIEO luôn sẵn sàng trao đổi với nhà tài trợ, đối tác dịch vụ và các nông hộ muốn
+        Nhóm dự án Shark Xanh luôn sẵn sàng trao đổi với nhà tài trợ, đối tác dịch vụ và các nông hộ muốn
         mở chiến dịch trên nền tảng.
       </p>
 
@@ -176,7 +176,7 @@ function ContactPage() {
 
         <aside className="lg:col-span-5">
           <div className="bg-moss text-cream rounded-3xl p-8">
-            <h2 className="font-display text-3xl">Nhóm dự án GIEO</h2>
+            <h2 className="font-display text-3xl">Nhóm dự án Shark Xanh</h2>
             <ul className="mt-5 space-y-3 text-sm text-cream/80">
               <li>Email: hello@gopxanh.vn</li>
               <li>Điện thoại: (024) 3200 0000</li>
